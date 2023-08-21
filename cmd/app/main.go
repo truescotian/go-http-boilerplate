@@ -52,7 +52,7 @@ type Main struct {
 
 func NewMain() *Main {
 	connectionString :=
-		fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=%s search_path=%s", "localhost", "5432", "gregmiller", "tranqdb", "SOME_PASSWORD", "disable", "public")
+		fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=%s search_path=%s", "localhost", "5432", "gregmiller", "go-http-boilerplate", "some_pw", "disable", "public")
 
 	return &Main{
 		DB:         postgres.NewDB(connectionString),
