@@ -54,22 +54,18 @@ func createUser(ctx context.Context, tx *Tx, user *app.User) error {
 		return err
 	}
 
-	query := fmt.Sprintf(`INSERT INTO users (username) VALUES ('%s')`, user.Name)
-
-	result, err := tx.ExecContext(
+	lastInsertId := 0
+	err := tx.QueryRowContext(
 		ctx,
-		query,
-	)
+		"INSERT INTO users (name) VALUES ($1) RETURNING id",
+		user.Name,
+	).Scan(&lastInsertId)
 
 	if err != nil {
 		return err
 	}
 
-	id, err := result.LastInsertId()
-	if err != nil {
-		return err
-	}
-	user.ID = int(id)
+	user.ID = lastInsertId
 
 	return nil
 }
